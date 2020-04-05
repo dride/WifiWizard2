@@ -1835,15 +1835,8 @@ public class WifiWizard2 extends CordovaPlugin {
       Log.d(TAG, "BindALL onSuccessfulConnection API >= 23");
 
       // Marshmallow (API 23+) or newer uses bindProcessToNetwork
-<<<<<<< HEAD
-      final NetworkRequest request = new NetworkRequest.Builder()
-          .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-          .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-          .build();
-=======
       final NetworkRequest request = new NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
           .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build();
->>>>>>> 03cd4c448d50a7667f844e4f0aa61b358c527c22
 
       networkCallback = new ConnectivityManager.NetworkCallback() {
         @Override
@@ -1864,18 +1857,10 @@ public class WifiWizard2 extends CordovaPlugin {
 
       Log.d(TAG, "BindALL onSuccessfulConnection API >= 21 && < 23");
 
-<<<<<<< HEAD
-      // Lollipop (API 21-22) use setProcessDefaultNetwork (deprecated in API 23 - Marshmallow)
-      final NetworkRequest request = new NetworkRequest.Builder()
-          .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-          .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-          .build();
-=======
       // Lollipop (API 21-22) use setProcessDefaultNetwork (deprecated in API 23 -
       // Marshmallow)
       final NetworkRequest request = new NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
           .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build();
->>>>>>> 03cd4c448d50a7667f844e4f0aa61b358c527c22
 
       networkCallback = new ConnectivityManager.NetworkCallback() {
         @Override
