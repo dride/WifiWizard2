@@ -51,7 +51,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.os.Build.VERSION;
 import android.os.PatternMatcher;
-import android.os.PatternMatcher;
 
 import java.net.URL;
 import java.net.InetAddress;
@@ -464,7 +463,7 @@ public class WifiWizard2 extends CordovaPlugin {
         };
 
         WifiNetworkSpecifier.Builder builder = new WifiNetworkSpecifier.Builder();
-        builder.setSsidPattern(new PatternMatcher(newSSID, PatterMatcher.PATTERN_PREFIX));
+        builder.setSsidPattern(new PatternMatcher(newSSID, PatternMatcher.PATTERN_PREFIX));
         builder.setWpa2Passphrase(newPass);
 
         WifiNetworkSpecifier wifiNetworkSpecifier = builder.build();
