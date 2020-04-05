@@ -51,6 +51,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.os.Build.VERSION;
 import android.os.PatternMatcher;
+import android.os.PatternMatcher;
 
 import java.net.URL;
 import java.net.InetAddress;
@@ -473,7 +474,7 @@ public class WifiWizard2 extends CordovaPlugin {
         };
 
         WifiNetworkSpecifier.Builder builder = new WifiNetworkSpecifier.Builder();
-        builder.setSsid(newSSID);
+        builder.setSsidPattern(new PatternMatcher(newSSID, PatternMatcher.PATTERN_PREFIX));
         builder.setWpa2Passphrase(newPass);
 
         WifiNetworkSpecifier wifiNetworkSpecifier = builder.build();
@@ -1831,7 +1832,7 @@ public class WifiWizard2 extends CordovaPlugin {
       // Marshmallow (API 23+) or newer uses bindProcessToNetwork
       final NetworkRequest request = new NetworkRequest.Builder()
           .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-//          .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+          .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
           .build();
 
       networkCallback = new ConnectivityManager.NetworkCallback() {
@@ -1855,7 +1856,7 @@ public class WifiWizard2 extends CordovaPlugin {
       // Lollipop (API 21-22) use setProcessDefaultNetwork (deprecated in API 23 - Marshmallow)
       final NetworkRequest request = new NetworkRequest.Builder()
           .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-//          .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+          .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
           .build();
 
       networkCallback = new ConnectivityManager.NetworkCallback() {
