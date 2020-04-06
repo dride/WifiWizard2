@@ -459,7 +459,9 @@ public class WifiWizard2 extends CordovaPlugin {
           @Override
           public void onAvailable(Network network) {
             connectivityManager.setProcessDefaultNetwork(network);
+            callbackContext.success();
           }
+
         };
 
         WifiNetworkSpecifier.Builder builder = new WifiNetworkSpecifier.Builder();
@@ -476,6 +478,9 @@ public class WifiWizard2 extends CordovaPlugin {
         ConnectivityManager cm = (ConnectivityManager) cordova.getActivity().getApplicationContext()
             .getSystemService(Context.CONNECTIVITY_SERVICE);
         cm.requestNetwork(nr, this.networkCallback);
+
+
+        Log.d(TAG, "SetProcessDefaultNetwork done??");
       } else {
         // After processing authentication types, add or update network
         if (wifi.networkId == -1) { // -1 means SSID configuration does not exist yet
@@ -793,7 +798,7 @@ public class WifiWizard2 extends CordovaPlugin {
             // received one
                 (connectionState == NetworkInfo.DetailedState.OBTAINING_IPADDR && info.getIpAddress() != 0));
 
-        if (isConnected) {
+        if (API_VERSION >= 29 || isConnected) {
           return new String[] { null, "NETWORK_CONNECTION_COMPLETED" };
         }
 
@@ -1247,7 +1252,6 @@ public class WifiWizard2 extends CordovaPlugin {
   private int ssidToNetworkId(String ssid) {
 
     try {
-
       int maybeNetId = Integer.parseInt(ssid);
       Log.d(TAG, "ssidToNetworkId passed SSID is integer, probably a Network ID: " + ssid);
       return maybeNetId;
@@ -1264,7 +1268,11 @@ public class WifiWizard2 extends CordovaPlugin {
         }
       }
 
-      return networkId;
+      if( API_VERSION < 29) {
+        return networkId;
+      }else{
+        return 0;
+      }
 
     }
   }
@@ -1697,7 +1705,7 @@ public class WifiWizard2 extends CordovaPlugin {
           Log.d(TAG, "Connected to '" + ssid + "' @ " + bssid);
 
           // Verify the desired network ID is what we actually connected to
-          if (desired != null && info.getNetworkId() == desired.apId) {
+          if (desired != null && info.getNetworkId() == desired.apId || (API_VERSION >= 29) ) {
             onSuccessfulConnection();
           } else {
             Log.e(TAG, "Could not connect to the desired ssid: " + ssid);
